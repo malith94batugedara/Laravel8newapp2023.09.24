@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware('auth','isAdmin')->group(function(){
 
+    //dashboard and category routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
@@ -34,6 +36,14 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function(){
     Route::put('/update-category/{category_id}', [CategoryController::class, 'update'])->name('admin.updatecategory');
 
     Route::get('/delete-category/{category_id}', [CategoryController::class, 'delete'])->name('admin.deletecategory');
+
+    //posts routes
+    Route::get('/posts', [PostController::class, 'index'])->name('admin.posts');
+
+    Route::get('/add-post', [PostController::class, 'create'])->name('admin.addpost');
+
+    Route::post('/add-post', [PostController::class, 'store'])->name('admin.addpost');
+
 
 });
 
